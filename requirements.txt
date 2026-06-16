@@ -1,5 +1,11 @@
 fastapi
-uvicorn
+uvicorn[standard]
+pandas
+numpy
+plotly
 requests
+httpx
+ta
 python-dotenv
-beautifulsoup4
+gunicorn
+openai>=1.99.0
