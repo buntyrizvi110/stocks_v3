@@ -892,6 +892,68 @@ HTML = r"""
 .toolbar{display:grid;grid-template-columns:48px 292px 1fr;gap:8px;align-items:center}.menu,.selectBox,.tfTabs{height:38px;border:1px solid var(--line);background:#091827;border-radius:8px}.menu{display:grid;place-items:center;font-size:18px;color:#b7c7dc}.selectBox{display:flex;align-items:center;gap:10px;padding:0 12px}.selectBox label{font-size:12px;color:var(--muted)}select{background:transparent;border:0;outline:0;color:var(--text);font-weight:900;font-size:14px;flex:1}option{background:#0d1828;color:#fff}.tfTabs{display:flex;align-items:center;gap:5px;padding:5px;width:max-content;min-width:360px}.tfTabs button{height:28px;min-width:48px;border:0;border-radius:7px;background:transparent;color:#cbd5e1;font-weight:800}.tfTabs button.active{background:#0d4a87;color:#fff;box-shadow:inset 0 0 0 1px #2d8cff}.error{position:absolute;top:112px;left:370px;z-index:5;color:#ff8093;font-weight:900;font-size:12px}
 .grid{min-height:0;height:100%;display:grid;grid-template-columns:340px minmax(720px,1fr);gap:7px;overflow:hidden}.left{min-height:0;height:100%;display:grid;grid-template-rows:124px 146px 126px minmax(116px,1fr);gap:5px;overflow:hidden}.panel{min-height:0;background:linear-gradient(180deg,rgba(15,32,52,.98),rgba(8,20,34,.98));border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 16px 45px rgba(0,0,0,.30)}.panelHead{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 13px;border-bottom:1px solid rgba(255,255,255,.07);font-weight:900;font-size:13px}.info{color:#65768d}.aiSignal{display:block;padding:10px 16px;overflow:hidden}.signalLine{display:flex;align-items:flex-end;gap:12px;min-width:0;margin:2px 0 8px}.assetBadge{font-size:14px;font-weight:1000;line-height:1.05;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-bottom:4px}.bullIcon{display:none}.signalText{font-size:27px;line-height:1;font-weight:1000;margin:0;color:var(--green);white-space:nowrap}.confidenceLabel{font-size:15px;line-height:1.1}.confidence{font-size:22px;font-weight:1000;color:#00ff93;line-height:1.05}.bars{display:flex;gap:3px;align-items:flex-end;height:14px;margin-top:5px}.bars i{width:4px;border-radius:8px;background:var(--green)}.tradeRows{padding:5px 14px}.tradeRow{height:27px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07);font-weight:900}.tradeRow span{font-size:13px}.tradeRow b{font-size:16px;white-space:nowrap}.gaugeWrap{height:91px;display:flex;align-items:center;justify-content:center}.gaugeSvg{width:190px;height:96px}.gaugeTrack{fill:none;stroke:#173150;stroke-width:18;stroke-linecap:round}.gaugeGreen{fill:none;stroke:var(--green);stroke-width:18;stroke-linecap:round}.gaugeYellow{fill:none;stroke:#e3df2f;stroke-width:18;stroke-linecap:round}.gaugeOrange{fill:none;stroke:var(--amber);stroke-width:18;stroke-linecap:round}.gaugeRed{fill:none;stroke:var(--red);stroke-width:18;stroke-linecap:round}.needle{stroke:#fff;stroke-width:4;stroke-linecap:round;filter:drop-shadow(0 0 5px rgba(255,255,255,.7));transform-origin:115px 110px}.gaugeNum{font-size:31px;font-weight:1000;fill:#fff;text-anchor:middle}.gaugeLabelText{font-size:12px;font-weight:1000;text-anchor:middle}.donutBox{height:calc(100% - 30px);display:grid;grid-template-columns:92px 1fr;gap:7px;align-items:center;padding:6px 10px;overflow:hidden}.donut{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) 0deg 190deg,var(--violet) 190deg 285deg,var(--cyan) 285deg 360deg);position:relative}.donut:after{content:"";position:absolute;inset:13px;background:#091827;border-radius:50%}.donut b{z-index:1;font-size:24px}.legend div{display:flex;justify-content:space-between;margin:4px 0;color:#dbeafe;font-size:11px}.legend h3{margin:4px 0 0;font-size:15px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.neu{color:var(--amber)!important}
 .rightMain{min-height:0;height:100%;display:grid;grid-template-rows:52px minmax(250px,1fr) 216px;gap:6px;overflow:hidden}.kpiStrip{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0e1d30}.kpi{padding:7px 10px;border-right:1px solid rgba(255,255,255,.08)}.kpi:last-child{border-right:0}.kpi small{display:block;color:#c8d6e8;font-size:11px;font-weight:900}.kpi b{display:block;margin-top:5px;font-size:16px}.chartPanel{position:relative}.chartTop{position:absolute;top:8px;left:14px;right:14px;z-index:2;display:flex;justify-content:space-between;font-size:12px;color:#dbeafe;pointer-events:none}.tvBadge{height:28px;border:1px solid var(--line);border-radius:7px;padding:6px 10px;background:#091827;font-weight:900}.chartWrap{height:100%;padding-top:30px}.chart{width:100%;height:100%}.bottomCards{min-height:0;display:grid;grid-template-columns:1fr 1.05fr 1.1fr 1.05fr;gap:7px}.body{padding:8px 12px;overflow:hidden;height:calc(100% - 30px)}.line{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}.aiText{font-size:12px;line-height:1.35;color:#e2edf9}.recommend{margin-top:8px;color:#52a8ff;font-size:11px;font-weight:900}.newsSent{display:grid;grid-template-columns:1fr 96px;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px;margin-bottom:6px}.newsScore{font-size:22px;font-weight:1000}.newsGaugeSvg{width:96px;height:58px}.newsNeedle{stroke:#fff;stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 4px rgba(255,255,255,.7));transform-origin:48px 50px}.newsGaugeNum{font-size:12px;font-weight:1000;fill:#fff;text-anchor:middle}.newsItem{display:grid;grid-template-columns:34px 1fr 10px;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px}.newsItem a{color:#e2edf9;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.driver{display:grid;grid-template-columns:28px 1fr 62px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}.driverIcon{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:rgba(245,158,11,.13);color:#facc15;font-size:11px;font-weight:900}.foot{display:flex;align-items:center;justify-content:space-between;color:#8ea2bb;font-size:11px;border:1px solid var(--line);border-radius:8px;background:#07111f;padding:0 14px}
+
+/* ===== THEME TOGGLE: Default is Dark. Compact button to avoid overlapping header content ===== */
+.themeSwitch{
+  width:32px;height:32px;min-width:32px;border:1px solid var(--line);border-radius:8px;
+  background:#091827;color:#dbeafe;font-weight:900;font-size:14px;line-height:1;
+  display:flex;align-items:center;justify-content:center;padding:0;margin:0;
+  cursor:pointer;user-select:none;transition:.2s ease;flex:0 0 32px;
+}
+.themeSwitch:hover{transform:scale(1.05)}
+.themeSwitch .modeText{display:block;min-width:0;text-align:center;line-height:1}
+body.light-theme{
+  --bg:#edf3fb;--panel:#ffffff;--panel2:#f5f8fc;--line:#c9d6e8;--text:#102033;--muted:#5c6d82;
+}
+body.light-theme{
+  background:#edf3fb;color:var(--text);
+}
+body.light-theme .app{
+  background:radial-gradient(circle at 8% 0%,rgba(45,140,255,.12),transparent 28%),linear-gradient(180deg,#f8fbff,#eaf1fb);
+}
+body.light-theme .topbar,
+body.light-theme .menu,
+body.light-theme .selectBox,
+body.light-theme .tfTabs,
+body.light-theme .tvBadge,
+body.light-theme .foot,
+body.light-theme .marketStrip{
+  background:#ffffff;color:#102033;border-color:var(--line);
+}
+body.light-theme .panel{
+  background:linear-gradient(180deg,#ffffff,#f4f8fd);
+  color:#102033;border-color:var(--line);box-shadow:0 14px 32px rgba(30,64,120,.12);
+}
+body.light-theme .panelHead,
+body.light-theme .tradeRow,
+body.light-theme .line,
+body.light-theme .driver,
+body.light-theme .newsItem{
+  border-color:rgba(15,35,65,.10);
+}
+body.light-theme .tickerCard{border-color:var(--line)}
+body.light-theme .kpiStrip{background:#ffffff;border-color:var(--line)}
+body.light-theme .kpi{border-color:rgba(15,35,65,.10)}
+body.light-theme .chartPanel{background:#ffffff}
+body.light-theme .chartWrap{background:#ffffff}
+body.light-theme .chartTop,
+body.light-theme .aiText,
+body.light-theme .legend div,
+body.light-theme .driver span,
+body.light-theme .newsItem a,
+body.light-theme .kpi small,
+body.light-theme .live,
+body.light-theme .hitBox{
+  color:#102033;
+}
+body.light-theme select{color:#102033}
+body.light-theme option{background:#ffffff;color:#102033}
+body.light-theme .tfTabs button{color:#334155}
+body.light-theme .tfTabs button.active{background:#dcecff;color:#0b3b72;box-shadow:inset 0 0 0 1px #2d8cff}
+body.light-theme .themeSwitch{background:#eaf2ff;color:#0b3b72}
+body.light-theme .gaugeTrack{stroke:#d5e1f1}
+body.light-theme .donut:after{background:#ffffff}
+
 @media(max-width:1300px){
   html,body{height:auto;min-height:100%;overflow-x:hidden;overflow-y:auto}
   .app{height:auto;min-height:100vh;overflow:visible;display:flex;flex-direction:column;padding:6px;gap:6px}
@@ -902,6 +964,8 @@ HTML = r"""
   .grid{height:auto;min-height:0;grid-template-columns:1fr;overflow:visible}.left{height:auto;grid-template-rows:none;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}.panel{min-height:126px;overflow:hidden}.rightMain{height:auto;grid-template-rows:auto 520px auto;overflow:visible}.kpiStrip{grid-template-columns:repeat(4,minmax(0,1fr))}.bottomCards{grid-template-columns:repeat(2,minmax(0,1fr))}.body{height:auto;min-height:150px;max-height:none;overflow:visible}.chartWrap{min-height:480px}.chart{min-height:480px}.error{position:static}.foot{height:auto;min-height:34px;gap:10px;flex-wrap:wrap}
 }
 @media(max-width:760px){
+  .themeSwitch{width:28px;height:28px;min-width:28px;flex-basis:28px;font-size:12px;border-radius:7px}
+
   .app{padding:5px;gap:6px}.topbar{padding:7px}.brand{gap:8px}.logo{width:40px;height:40px;font-size:26px;border-radius:10px}.brand h1{font-size:15px}.brand p{font-size:16px}.marketStrip{grid-template-columns:repeat(2,minmax(0,1fr))}.tickerCard{padding:6px 8px}.tickerCard strong{font-size:13px}.tickerCard span{float:none;display:inline-block;margin-left:8px}.topRight{gap:8px}.hitBox{border-left:0;padding-left:0}.live{border-left:1px solid var(--line);padding-left:8px}
   .toolbar{grid-template-columns:1fr}.menu{display:none}.selectBox{width:100%;height:40px}.tfTabs{height:42px;padding:6px}.tfTabs button{min-width:54px;height:30px}.grid{gap:6px}.left{grid-template-columns:1fr}.panel{border-radius:9px}.aiSignal{padding:10px 14px}.signalLine{align-items:flex-start;flex-direction:column;gap:4px}.signalText{font-size:25px;white-space:normal}.assetBadge{font-size:13px;max-width:100%;white-space:normal}.tradeRow b{font-size:14px;text-align:right;white-space:normal}.donutBox{grid-template-columns:88px 1fr}.rightMain{grid-template-rows:auto 430px auto}.kpiStrip{grid-template-columns:repeat(2,minmax(0,1fr));height:auto}.kpi{min-height:52px}.chartTop{left:10px;right:10px;font-size:11px}.tvBadge{display:none}.chartWrap{min-height:400px;padding-top:32px}.chart{min-height:400px}.bottomCards{grid-template-columns:1fr}.newsSent{grid-template-columns:1fr 88px}.foot{align-items:flex-start;justify-content:flex-start;font-size:10px;padding:8px 10px}
 }
@@ -916,7 +980,7 @@ HTML = r"""
   <header class="topbar">
     <div class="brand"><div class="logo">AI</div><div><h1>AI MARKETLENS</h1><p>By Syed Abbas</p></div></div>
     <div class="marketStrip" id="marketStrip"></div>
-    <div class="topRight"><div class="hitBox">Page Hits<br><b id="hitCount">--</b></div><div class="live">Live <span class="dot"></span><br><b id="clock">--</b></div></div>
+    <div class="topRight"><button class="themeSwitch" id="themeToggle" type="button" title="Switch theme"><span class="modeText" id="themeText">☀</span></button><div class="hitBox">Page Hits<br><b id="hitCount">--</b></div><div class="live">Live <span class="dot"></span><br><b id="clock">--</b></div></div>
   </header>
   <section class="toolbar">
     <div class="menu">MENU</div>
@@ -947,7 +1011,25 @@ HTML = r"""
 <script>
 const ASSETS={GOLD:["GOLD","GOLD (XAUUSD)"],SILVER:["SILVER","SILVER"],WTI:["WTI","WTI OIL"],BRENT:["BRENT","BRENT CRUDE"],BTC:["BTC","BITCOIN"],USTEC100:["US100","US TECH 100"]};
 const TFS=["1M","15M","30M","1H","1D"];let asset="GOLD",tf="15M",busy=false;
-function init(){Object.keys(ASSETS).forEach(k=>assetSelect.innerHTML+=`<option value="${k}">${ASSETS[k][1]}</option>`);assetSelect.value=asset;assetSelect.onchange=()=>{asset=assetSelect.value;loadData(true)};tfTabs.innerHTML=TFS.map(t=>`<button data-tf="${t}">${t}</button>`).join('');tfTabs.onclick=e=>{if(e.target.dataset.tf){tf=e.target.dataset.tf;setTabs();loadData(true)}};setTabs();updateAssetBadge();setInterval(()=>clock.innerText=new Date().toLocaleTimeString(),1000);fetch('/api/hit').then(r=>r.json()).then(x=>{hitCount.innerText=x.hits??'--'}).catch(()=>{});loadStrip();loadData(true);setInterval(()=>loadData(false),30000);setInterval(loadStrip,60000)}
+function currentTheme(){return localStorage.getItem('marketlens_theme')||'dark'}
+function applyTheme(theme){
+  const isLight=theme==='light';
+  document.body.classList.toggle('light-theme',isLight);
+  if(window.themeText)themeText.innerText=isLight?'🌙':'☀';
+  try{if(window.chart&&window.Plotly)Plotly.Plots.resize('chart')}catch(e){}
+}
+function initTheme(){
+  applyTheme(currentTheme());
+  if(window.themeToggle){
+    themeToggle.onclick=()=>{
+      const next=document.body.classList.contains('light-theme')?'dark':'light';
+      localStorage.setItem('marketlens_theme',next);
+      applyTheme(next);
+      try{loadData(true)}catch(e){}
+    };
+  }
+}
+function init(){initTheme();Object.keys(ASSETS).forEach(k=>assetSelect.innerHTML+=`<option value="${k}">${ASSETS[k][1]}</option>`);assetSelect.value=asset;assetSelect.onchange=()=>{asset=assetSelect.value;loadData(true)};tfTabs.innerHTML=TFS.map(t=>`<button data-tf="${t}">${t}</button>`).join('');tfTabs.onclick=e=>{if(e.target.dataset.tf){tf=e.target.dataset.tf;setTabs();loadData(true)}};setTabs();updateAssetBadge();setInterval(()=>clock.innerText=new Date().toLocaleTimeString(),1000);fetch('/api/hit').then(r=>r.json()).then(x=>{hitCount.innerText=x.hits??'--'}).catch(()=>{});loadStrip();loadData(true);setInterval(()=>loadData(false),30000);setInterval(loadStrip,60000)}
 function setTabs(){document.querySelectorAll('#tfTabs button').forEach(b=>b.classList.toggle('active',b.dataset.tf===tf))}
 function fmt(x){let n=Number(String(x??'').replace(/,/g,''));return isFinite(n)?n.toLocaleString(undefined,{minimumFractionDigits:3,maximumFractionDigits:3}):'--'}
 function zoneText(x){return String(x??'--').split(' - ').map(fmt).join(' - ')}
@@ -962,7 +1044,7 @@ function assetColor(k){return {GOLD:'#FFD700',SILVER:'#C0C0C0',BTC:'#ff405d',WTI
 function updateAssetBadge(){if(window.assetBadge){assetBadge.innerText=ASSETS[asset]?.[1]||asset;assetBadge.style.color=assetColor(asset)}}
 function render(d){updateAssetBadge();let label=d.fusion.label||'NEUTRAL',col=labelColor(label),conf=Number(d.fusion.confidence||0),fusion=Math.round(Math.abs(Number(d.fusion.fusion||0))),rsi=Number(d.tech.rsi||50);let [rz,rzCol]=rsiZone(rsi);signalText.innerText=(d.fusion.signal||'HOLD').replace(' SIGNAL','');signalText.style.color=col;confidenceValue.innerText=Math.round(conf);bars.innerHTML=Array.from({length:18},(_,i)=>`<i style="height:${5+i}px;background:${i<Math.round(conf/100*18)?col:'#1f3048'}"></i>`).join('');entryVal.innerText=zoneText(d.tech.entry_zone||d.tech.entry);targetVal.innerText=fmt(d.tech.target);stopVal.innerText=fmt(d.tech.stop);rrVal.innerText=rr(d.tech.entry,d.tech.target,d.tech.stop);rsiNum.textContent=Math.round(rsi);rsiLabel.textContent=rz;rsiLabel.setAttribute('fill',rzCol);rsiNeedle.style.transform=`rotate(${Math.max(-90,Math.min(90,(rsi/100*180)-90))}deg)`;fusionNum.innerText=fusion;fusionLabel.innerText=label;fusionLabel.style.color=col;let techP=Math.round(d.fusion.tech_percent||0),aiP=Math.round(d.fusion.ai_percent||0),newsP=Math.round(d.fusion.news_percent||0);techPct.innerText=techP+'%';aiPct.innerText=aiP+'%';newsPct.innerText=newsP+'%';fusionDonut.style.background=`conic-gradient(#20d66b 0deg ${techP*3.6}deg,#a855f7 ${techP*3.6}deg ${(techP+aiP)*1.8}deg,#21d4ff ${(techP+aiP)*1.8}deg 360deg)`;updated.innerText=d.updated;chartTitle.innerText=`${d.asset.name} - ${d.tf} - Capital.com - Signal fixed on ${d.signal_tf}`;
 let change=d.change||{percent:0,value:0};kpiStrip.innerHTML=[['PRICE',fmt(d.tech.price),'pos'],['24H CHANGE',pct(Number(change.percent||0)),Number(change.percent||0)>=0?'pos':'neg'],['VOLUME',d.chart?.data?.[0]?.close?.length||0,''],['ATR (14)',fmt(d.tech.atr),''],['RSI (14)',rsi.toFixed(2),rsi>=70||rsi<=30?'neg':''],['VOLATILITY',(d.tech.regime?.atr_pct||0).toFixed(2)+'%',''],['TREND',label,label==='BEARISH'?'neg':'pos']].map(x=>`<div class="kpi"><small>${x[0]}</small><b class="${x[2]}">${x[1]}</b></div>`).join('');
-let layout=d.chart.layout||{};layout.paper_bgcolor='rgba(0,0,0,0)';layout.plot_bgcolor='#081523';layout.font={color:'#cbd5e1',size:10};layout.margin={l:56,r:68,t:18,b:58};layout.height=null;layout.autosize=true;layout.legend={orientation:'h',y:1.08,x:0,font:{size:10,color:'#cbd5e1'}};layout.xaxis={...(layout.xaxis||{}),gridcolor:'rgba(148,163,184,.12)',linecolor:'#203047',fixedrange:true,rangebreaks:['1M','15M','30M','1H'].includes(d.tf)?[{bounds:['sat','mon']}]:[]};layout.yaxis={...(layout.yaxis||{}),gridcolor:'rgba(148,163,184,.12)',linecolor:'#203047',fixedrange:true};
+let layout=d.chart.layout||{};let isLight=document.body.classList.contains('light-theme');let chartBg=isLight?'#ffffff':'#081523';let chartFont=isLight?'#102033':'#cbd5e1';let gridCol=isLight?'rgba(15,35,65,.12)':'rgba(148,163,184,.12)';let axisCol=isLight?'#c9d6e8':'#203047';layout.template=isLight?'plotly_white':'plotly_dark';layout.paper_bgcolor='rgba(0,0,0,0)';layout.plot_bgcolor=chartBg;layout.font={color:chartFont,size:10};layout.margin={l:56,r:68,t:18,b:58};layout.height=null;layout.autosize=true;layout.legend={orientation:'h',y:1.08,x:0,font:{size:10,color:chartFont}};layout.xaxis={...(layout.xaxis||{}),gridcolor:gridCol,linecolor:axisCol,fixedrange:true,rangebreaks:['1M','15M','30M','1H'].includes(d.tf)?[{bounds:['sat','mon']}]:[]};layout.yaxis={...(layout.yaxis||{}),gridcolor:gridCol,linecolor:axisCol,fixedrange:true};
 let baseData=(d.chart.data||[]).slice();
 let xs=(baseData[0]&&baseData[0].x)||[];let x0=xs[0],x1=xs[xs.length-1];
 let levels=[['TARGET',Number(d.tech.target),'#20d66b','triangle-up'],['ENTRY',Number(d.tech.entry),'#2d8cff','circle'],['STOP LOSS',Number(d.tech.stop),'#ff405d','triangle-down']].filter(v=>isFinite(v[1]));
