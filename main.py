@@ -18,11 +18,10 @@ CAPITAL_BASE_URL = os.getenv("CAPITAL_BASE_URL", "https://demo-api-capital.backe
 CAPITAL_API_KEY = os.getenv("CAPITAL_API_KEY", "")
 CAPITAL_IDENTIFIER = os.getenv("CAPITAL_IDENTIFIER", "")
 CAPITAL_PASSWORD = os.getenv("CAPITAL_PASSWORD", "")
-
 CAPITAL_SESSION = {"cst": "", "security": "", "ts": 0}
 CAPITAL_LOCK = threading.Lock()
 
-app = FastAPI(title="SignalX AI Engine - Capital.com - By Syed Abbas")
+app = FastAPI(title="AI MARKETLENS - Capital.com - By Syed Abbas")
 executor = ThreadPoolExecutor(max_workers=int(os.getenv("APP_WORKERS", "3")))
 
 HIT_COUNTER_FILE = Path(os.getenv("HIT_COUNTER_FILE", "/home/site/hit_counter.json"))
@@ -171,7 +170,13 @@ def capital_login():
         return cst, security
 
 
-def get_capital_live_price(epic):
+def get_capital_market_snapshot(epic):
+    """Return live price and daily/24h change directly from Capital.com market snapshot.
+
+    Important: the dashboard must not calculate 24H change from intraday candles,
+    because CFD daily change on Capital.com is based on the platform snapshot fields.
+    This keeps Crude Oil WTI aligned with Capital.com, e.g. ~1% instead of 2–4%.
+    """
     cst, security = capital_login()
     headers = {"X-CAP-API-KEY": CAPITAL_API_KEY, "CST": cst, "X-SECURITY-TOKEN": security}
     url = f"{CAPITAL_BASE_URL.rstrip('/')}/markets/{epic}"
@@ -183,12 +188,53 @@ def get_capital_live_price(epic):
             headers.update({"CST": cst, "X-SECURITY-TOKEN": security})
             r = client.get(url, headers=headers)
         r.raise_for_status()
-        snapshot = r.json().get("snapshot", {})
+        payload = r.json()
+
+    snapshot = payload.get("snapshot", {}) or {}
     bid = safe_float(snapshot.get("bid"), 0)
     offer = safe_float(snapshot.get("offer"), 0)
-    if bid > 0 and offer > 0:
-        return round((bid + offer) / 2, 3)
-    return round(offer or bid or 0, 3)
+    price = round((bid + offer) / 2, 3) if bid > 0 and offer > 0 else round(offer or bid or 0, 3)
+
+    # Capital.com may return the percentage field with different names depending on account/API version.
+    pct_keys = [
+        "percentageChange", "percentChange", "percentage_change", "changePercentage",
+        "changePct", "changePercent", "dailyChangePercentage", "dailyChangePct",
+    ]
+    val_keys = ["netChange", "change", "dailyChange", "priceChange", "changeValue"]
+
+    pct = None
+    for k in pct_keys:
+        if k in snapshot and snapshot.get(k) is not None:
+            pct = safe_float(snapshot.get(k), None)
+            break
+
+    value = None
+    for k in val_keys:
+        if k in snapshot and snapshot.get(k) is not None:
+            value = safe_float(snapshot.get(k), None)
+            break
+
+    # If API gives only netChange, derive percent from previous price.
+    # Formula: pct = netChange / (current - netChange) * 100
+    if pct is None and value is not None and price and (price - value) > 0:
+        pct = value / (price - value) * 100
+
+    # If API gives percent but no value, derive approximate point change.
+    if value is None and pct is not None and price:
+        value = price - (price / (1 + pct / 100))
+
+    return {
+        "price": round(price, 3),
+        "change": {
+            "value": round(safe_float(value, 0), 3),
+            "percent": round(safe_float(pct, 0), 3),
+        },
+        "snapshot": snapshot,
+    }
+
+
+def get_capital_live_price(epic):
+    return get_capital_market_snapshot(epic).get("price", 0)
 
 
 def clean_market_candles(df, tf="30M"):
@@ -217,23 +263,24 @@ def clean_market_candles(df, tf="30M"):
     return d.sort_values("time").drop_duplicates("time").reset_index(drop=True)
 
 
-def compute_daily_change(df):
+def compute_daily_change(df, market_snapshot=None):
+    """Return dashboard change. Prefer Capital.com snapshot change over candles."""
     try:
+        if isinstance(market_snapshot, dict):
+            ch = market_snapshot.get("change") or {}
+            if ch and (ch.get("percent") is not None):
+                return {"value": round(safe_float(ch.get("value"), 0), 3), "percent": round(safe_float(ch.get("percent"), 0), 3)}
+
+        # Fallback only if Capital.com snapshot change is unavailable.
         d = df.copy().dropna(subset=["time", "close"])
         if len(d) < 2:
             return {"value": 0.0, "percent": 0.0}
         d["time"] = pd.to_datetime(d["time"], utc=True, errors="coerce")
         d = d.sort_values("time")
-        last_time = d["time"].iloc[-1]
         last = safe_float(d["close"].iloc[-1])
-        prior_rows = d[d["time"] <= last_time - pd.Timedelta(hours=24)]
-        prior = safe_float(prior_rows["close"].iloc[-1]) if not prior_rows.empty else safe_float(d["close"].iloc[-2])
+        prior = safe_float(d["close"].iloc[-2])
         value = last - prior if prior > 0 else 0
         pct = value / prior * 100 if prior > 0 else 0
-        if abs(pct) > 20 and len(d) > 1:
-            prior = safe_float(d["close"].iloc[-2])
-            value = last - prior
-            pct = value / prior * 100 if prior > 0 else 0
         return {"value": round(value, 3), "percent": round(pct, 3)}
     except Exception:
         return {"value": 0.0, "percent": 0.0}
@@ -751,7 +798,13 @@ async def process(asset_key, tf):
     fusion_pre = fusion_signal(tech, news_score, ai, mtf=mtf, event_risk=event_risk)
     tracker = update_signal_tracker(asset_key, fusion_pre["signal"], tech["price"], fusion_pre["confidence"])
     fusion = fusion_signal(tech, news_score, ai, mtf=mtf, event_risk=event_risk, tracker=tracker)
-    result = {"asset_key": asset_key, "asset": ASSETS[asset_key], "data_source": "Capital.com", "tf": tf, "signal_tf": "30M", "tech": tech, "news": news, "news_score": round(news_score, 2), "ai": ai, "fusion": fusion, "chart": build_chart(chart_df, ASSETS[asset_key]["name"]), "change": compute_daily_change(signal_df), "institutional": {"mtf": mtf, "event_risk": event_risk, "tracker": tracker}, "updated": datetime.now().strftime("%H:%M:%S")}
+    try:
+        market_snapshot = await loop.run_in_executor(executor, get_capital_market_snapshot, ASSETS[asset_key]["epic"])
+        if safe_float(market_snapshot.get("price"), 0) > 0:
+            tech["price"] = market_snapshot["price"]
+    except Exception:
+        market_snapshot = None
+    result = {"asset_key": asset_key, "asset": ASSETS[asset_key], "data_source": "Capital.com", "tf": tf, "signal_tf": "30M", "tech": tech, "news": news, "news_score": round(news_score, 2), "ai": ai, "fusion": fusion, "chart": build_chart(chart_df, ASSETS[asset_key]["name"]), "change": compute_daily_change(signal_df, market_snapshot), "institutional": {"mtf": mtf, "event_risk": event_risk, "tracker": tracker}, "updated": datetime.now().strftime("%H:%M:%S")}
     _cache_set(RESPONSE_CACHE, response_key, result)
     return result
 
@@ -797,13 +850,18 @@ async def api_market_strip():
                 return {"asset_key": asset_key, "error": "No data"}
             d = add_indicators(df)
             last = d.iloc[-1]
-            ch = compute_daily_change(d)
+            try:
+                market_snapshot = await loop.run_in_executor(executor, get_capital_market_snapshot, ASSETS[asset_key]["epic"])
+            except Exception:
+                market_snapshot = None
+            ch = compute_daily_change(d, market_snapshot)
+            live_price = safe_float((market_snapshot or {}).get("price"), safe_float(last.close))
             return {
                 "asset_key": asset_key,
                 "name": ASSETS[asset_key]["name"],
                 "icon": ASSETS[asset_key]["icon"],
                 "epic": ASSETS[asset_key]["epic"],
-                "price": round(safe_float(last.close), 3),
+                "price": round(live_price, 3),
                 "change": ch,
                 "rsi": round(safe_float(last.rsi), 2),
                 "trend": "BULLISH" if last.ema9 > last.ema21 else "BEARISH" if last.ema9 < last.ema21 else "NEUTRAL",
@@ -821,7 +879,7 @@ HTML = r"""
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SignalX AI Engine - By Syed Abbas</title>
+<title>AI MARKETLENS - By Syed Abbas</title>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <style>
 :root{
@@ -856,7 +914,7 @@ HTML = r"""
 <div class="app">
   <div class="refreshBar"><div class="refreshFill" id="refreshFill"></div></div>
   <header class="topbar">
-    <div class="brand"><div class="logo">X</div><div><h1>SIGNALX AI ENGINE</h1><p>By Syed Abbas</p></div></div>
+    <div class="brand"><div class="logo">AI</div><div><h1>AI MARKETLENS</h1><p>By Syed Abbas</p></div></div>
     <div class="marketStrip" id="marketStrip"></div>
     <div class="topRight"><div class="hitBox">Page Hits<br><b id="hitCount">--</b></div><div class="live">Live <span class="dot"></span><br><b id="clock">--</b></div></div>
   </header>
